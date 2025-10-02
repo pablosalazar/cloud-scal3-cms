@@ -1,0 +1,32 @@
+:root {
+  color-scheme: dark;
+
+  /* base (dark) surface */
+  --app-background: #151515;
+  --foreground: #ffffff99;
+  --surface: #1c1c1c;
+  --surface-2: #222222;
+  --border-subtle: #7c7c7c;
+
+  /* gradients */
+  --gradient-success: linear-gradient(126deg, #EDDDB6 15.76%, #C9FFE6 50.46%, #A5C7FA 95.96%);
+
+  /* text tokens */
+  --text-primary: #ffffff;
+  --text-secondary: var(--foreground);
+  --text-dark: #2D2F31;
+
+  /* palette */
+  --mint: #D7F1D3;
+  --sand: #EDDDB6;
+  --green: #97F4BA;
+  --cyan: #BAE7EF;
+  --blue: #A6C8FA;
+
+  /* semantic map */
+  --accent: var(--mint);
+  --success: var(--green);
+  --info: var(--cyan);
+  --warning: var(--sand);
+  --brand: var(--blue);
+}

@@ -1,0 +1,12 @@
+@import "tailwindcss";
+
+
+
+.footer__menu--link {
+  @apply text-sm text-white/60 hover:text-white transition-all duration-200;
+}
+
+.footer__menu--social-icon {
+  @apply p-1 rounded-full hover:scale-110 transition-all duration-200;
+  background-color: var(--green);
+}

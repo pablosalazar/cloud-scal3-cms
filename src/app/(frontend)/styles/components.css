@@ -1,0 +1,128 @@
+@layer components {
+
+  .text-gray {
+    color: var(--text-dark);
+  }
+
+  .bg-app {
+    background-color: var(--app-background);
+  }
+
+  .bg-mint {
+    background-color: var(--mint);
+  }
+
+  .bg-sand {
+    background-color: var(--sand);
+  }
+
+  .bg-green {
+    background-color: var(--green);
+  }
+
+  .bg-cyan {
+    background-color: var(--cyan);
+  }
+
+  .bg-blue {
+    background-color: var(--blue);
+  }
+
+  .bg-surface {
+    background-color: var(--surface);
+  }
+
+  .bg-surface-2 {
+    background-color: var(--surface-2);
+  }
+
+  .text-featured {
+    background: linear-gradient(126deg,
+        var(--sand) 15.76%,
+        var(--mint) 30%,
+        var(--green) 50.46%,
+        var(--cyan) 75%,
+        var(--blue) 95.96%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+
+
+  }
+
+  .card {
+    background-color: var(--surface-2);
+    border: 1px solid var(--border-subtle);
+    @apply !rounded-4xl md:px-5 md:py-10;
+  }
+
+  .card-featured {
+    background: var(--gradient-success);
+    color: var(--text-dark) !important;
+    @apply !rounded-4xl !p-5 !py-10;
+  }
+
+  .section {
+    @apply container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8;
+  }
+
+  /* buttons */
+  .btn {
+    @apply inline-flex items-center gap-2 rounded-full px-4 py-2 font-semibold cursor-pointer transition-all duration-300 ease-out w-fit;
+  }
+
+  .btn.btn-lg {
+    @apply px-7 py-3 text-lg;
+  }
+
+  .btn--primary {
+    background-color: var(--green);
+    color: var(--text-dark);
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+
+    svg {
+      color: rgba(34, 34, 34, 0.80);
+      font-weight: 800;
+    }
+  }
+
+  .btn--black {
+    background-color: var(--surface-2);
+    color: white;
+    border: 1px solid #dfdfdf;
+
+
+    svg {
+      color: white;
+      font-weight: 800;
+    }
+
+    &:hover {
+      background-color: #333333;
+    }
+  }
+
+  .btn--white {
+    background-color: white;
+    color: var(--text-dark);
+  }
+
+
+  .hover-primary-raise:hover {
+    @apply -translate-y-0.5 shadow-[0_4px_12px_rgb(151_244_186_/_0.3)];
+  }
+
+  .hover-white-raise:hover {
+    @apply -translate-y-0.5 shadow-[0_4px_12px_rgba(255_255_255_/_0.3)];
+  }
+
+  .hover-black-raise:hover {
+    @apply -translate-y-0.5 shadow-[0_4px_12px_rgba(0_0_0_/_0.3)];
+  }
+
+  .hero-bg {
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0.70) 0%, rgba(0, 0, 0, 0.70) 100%), #C4C4C4;
+  }
+}
