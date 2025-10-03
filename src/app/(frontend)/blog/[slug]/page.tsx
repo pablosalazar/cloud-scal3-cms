@@ -1,35 +1,35 @@
 // app/blog/[slug]/page.tsx
-import { getPostBySlug, getAllPosts } from "@/data/posts";
-import { notFound } from "next/navigation";
-import { Badge } from "@/components/ui/badge";
-import Link from "next/link";
-import { ArrowLeft } from "lucide-react";
-import { Hero } from "@/components/common/Hero";
+import { getPostBySlug, getAllPosts } from '@/data/posts'
+import { notFound } from 'next/navigation'
+import { Badge } from '@/components/ui/badge'
+import Link from 'next/link'
+import { ArrowLeft } from 'lucide-react'
+import { Hero } from '@/components/common/Hero'
 
 interface PageProps {
   params: Promise<{
-    slug: string;
-  }>;
+    slug: string
+  }>
 }
 
 // Generate static paths at build time
 export async function generateStaticParams() {
-  const posts = getAllPosts();
+  const posts = getAllPosts()
 
   return posts.map((post) => ({
     slug: post.slug,
-  }));
+  }))
 }
 
 // Generate metadata for SEO
 export async function generateMetadata({ params }: PageProps) {
-  const { slug } = await params;
-  const post = getPostBySlug(slug);
+  const { slug } = await params
+  const post = getPostBySlug(slug)
 
   if (!post) {
     return {
-      title: "Post Not Found",
-    };
+      title: 'Post Not Found',
+    }
   }
 
   return {
@@ -40,15 +40,15 @@ export async function generateMetadata({ params }: PageProps) {
       description: post.excerpt,
       images: post.coverImage ? [post.coverImage.url] : [],
     },
-  };
+  }
 }
 
 export default async function BlogPost({ params }: PageProps) {
-  const { slug } = await params;
-  const post = getPostBySlug(slug);
+  const { slug } = await params
+  const post = getPostBySlug(slug)
 
   if (!post) {
-    notFound();
+    notFound()
   }
 
   return (
@@ -78,10 +78,10 @@ export default async function BlogPost({ params }: PageProps) {
         <header className="mb-8">
           <div className="flex items-center justify-between gap-4 text-muted-foreground mb-6">
             <time dateTime={post.publishedAt}>
-              {new Date(post.publishedAt).toLocaleDateString("en-US", {
-                year: "numeric",
-                month: "long",
-                day: "numeric",
+              {new Date(post.publishedAt).toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
               })}
             </time>
 
@@ -125,5 +125,5 @@ export default async function BlogPost({ params }: PageProps) {
         />
       </article>
     </>
-  );
+  )
 }
