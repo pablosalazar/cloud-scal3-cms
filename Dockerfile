@@ -60,6 +60,10 @@ RUN chown nextjs:nodejs .next
 COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
 
+# Create and set ownership for data and media directories
+RUN mkdir -p /app/data /app/media
+RUN chown -R nextjs:nodejs /app/data /app/media
+
 USER nextjs
 
 EXPOSE 3000
