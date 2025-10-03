@@ -60,7 +60,11 @@ RUN chown nextjs:nodejs .next
 COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
 
-# Create and set ownership for data and media directories
+# ADD: ensure libsql native modules and other runtime deps exist in the final image
+COPY --from=builder /app/node_modules ./node_modules
+RUN chown -R nextjs:nodejs /app/node_modules
+
+# ADD: create and own data/media directories for SQLite DB + uploads
 RUN mkdir -p /app/data /app/media
 RUN chown -R nextjs:nodejs /app/data /app/media
 
@@ -71,5 +75,4 @@ EXPOSE 3000
 ENV PORT 3000
 
 # server.js is created by next build from the standalone output
-# https://nextjs.org/docs/pages/api-reference/next-config-js/output
 CMD HOSTNAME="0.0.0.0" node server.js
