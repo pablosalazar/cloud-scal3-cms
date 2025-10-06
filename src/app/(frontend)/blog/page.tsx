@@ -1,7 +1,6 @@
-// app/blog/page.tsx
-import Link from "next/link";
-import { getAllPosts } from "@/data/posts";
-import { Badge } from "@/components/ui/badge";
+import Link from 'next/link'
+import { getAllPosts } from '@/data/posts'
+import { Badge } from '@/components/ui/badge'
 import {
   Card,
   CardContent,
@@ -9,19 +8,20 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
-import Image from "next/image";
+} from '@/components/ui/card'
+import Image from 'next/image'
 
-export default function BlogPage() {
-  const posts = getAllPosts();
+export default async function BlogPage() {
+  const posts = await getAllPosts() // Made it async
+
+  console.log(posts)
 
   return (
     <div className="container mx-auto px-4 py-12 max-w-7xl">
       <div className="mb-12">
         <h1 className="text-4xl font-bold mb-4">Blog</h1>
         <p className="text-muted-foreground text-lg">
-          Latest articles and insights about AWS, cloud architecture, and
-          technology.
+          Latest articles and insights about AWS, cloud architecture, and technology.
         </p>
       </div>
 
@@ -45,18 +45,16 @@ export default function BlogPage() {
                   {post.title}
                 </CardTitle>
                 <CardDescription className="text-sm">
-                  {new Date(post.publishedAt).toLocaleDateString("en-US", {
-                    year: "numeric",
-                    month: "long",
-                    day: "numeric",
+                  {new Date(post.publishedAt).toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric',
                   })}
                 </CardDescription>
               </CardHeader>
 
               <CardContent>
-                <p className="text-muted-foreground line-clamp-3">
-                  {post.excerpt}
-                </p>
+                <p className="text-muted-foreground line-clamp-3">{post.excerpt}</p>
               </CardContent>
 
               <CardFooter className="flex flex-wrap gap-2">
@@ -65,14 +63,12 @@ export default function BlogPage() {
                     {tag}
                   </Badge>
                 ))}
-                {post.tags.length > 3 && (
-                  <Badge variant="outline">+{post.tags.length - 3}</Badge>
-                )}
+                {post.tags.length > 3 && <Badge variant="outline">+{post.tags.length - 3}</Badge>}
               </CardFooter>
             </Card>
           </Link>
         ))}
       </div>
     </div>
-  );
+  )
 }

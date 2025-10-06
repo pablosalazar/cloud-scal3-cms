@@ -165,7 +165,11 @@ export interface Media {
 export interface Post {
   id: number;
   title: string;
+  /**
+   * Auto-generated from title, but you can edit it
+   */
   slug: string;
+  excerpt: string;
   content: {
     root: {
       type: string;
@@ -181,8 +185,14 @@ export interface Post {
     };
     [k: string]: unknown;
   };
-  excerpt?: string | null;
-  publishedDate?: string | null;
+  coverImage?: (number | null) | Media;
+  publishedAt: string;
+  tags?:
+    | {
+        tag?: string | null;
+        id?: string | null;
+      }[]
+    | null;
   status?: ('draft' | 'published') | null;
   updatedAt: string;
   createdAt: string;
@@ -295,9 +305,16 @@ export interface MediaSelect<T extends boolean = true> {
 export interface PostsSelect<T extends boolean = true> {
   title?: T;
   slug?: T;
-  content?: T;
   excerpt?: T;
-  publishedDate?: T;
+  content?: T;
+  coverImage?: T;
+  publishedAt?: T;
+  tags?:
+    | T
+    | {
+        tag?: T;
+        id?: T;
+      };
   status?: T;
   updatedAt?: T;
   createdAt?: T;

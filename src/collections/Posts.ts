@@ -1,9 +1,26 @@
 import { CollectionConfig } from 'payload'
 
+const formatSlug = (val: string): string => {
+  return val
+    .toString()
+    .normalize('NFD') // Normalize unicode characters
+    .replace(/[\u0300-\u036f]/g, '') // Remove diacritics
+    .toLowerCase()
+    .trim()
+    .replace(/\s+/g, '-') // Replace spaces with -
+    .replace(/[^\w\-]+/g, '') // Remove all non-word chars
+    .replace(/\-\-+/g, '-') // Replace multiple - with single -
+    .replace(/^-+/, '') // Trim - from start
+    .replace(/-+$/, '') // Trim - from end
+}
+
 export const Posts: CollectionConfig = {
   slug: 'posts',
   admin: {
     useAsTitle: 'title',
+  },
+  access: {
+    read: () => true, // Public read access
   },
   fields: [
     {
@@ -18,7 +35,23 @@ export const Posts: CollectionConfig = {
       unique: true,
       admin: {
         position: 'sidebar',
+        description: 'Auto-generated from title, but you can edit it',
       },
+      hooks: {
+        beforeValidate: [
+          ({ value, data }) => {
+            if (!value && data?.title) {
+              return formatSlug(data.title)
+            }
+            return value ? formatSlug(value) : value
+          },
+        ],
+      },
+    },
+    {
+      name: 'excerpt',
+      type: 'textarea',
+      required: true,
     },
     {
       name: 'content',
@@ -26,15 +59,27 @@ export const Posts: CollectionConfig = {
       required: true,
     },
     {
-      name: 'excerpt',
-      type: 'textarea',
+      name: 'coverImage',
+      type: 'upload',
+      relationTo: 'media',
     },
     {
-      name: 'publishedDate',
+      name: 'publishedAt',
       type: 'date',
+      required: true,
       admin: {
         position: 'sidebar',
       },
+    },
+    {
+      name: 'tags',
+      type: 'array',
+      fields: [
+        {
+          name: 'tag',
+          type: 'text',
+        },
+      ],
     },
     {
       name: 'status',
