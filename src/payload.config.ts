@@ -31,7 +31,7 @@ export default buildConfig({
     client: {
       url: process.env.DATABASE_URI || '',
     },
-    push: false,
+    push: true,
   }),
   sharp,
   plugins: [
