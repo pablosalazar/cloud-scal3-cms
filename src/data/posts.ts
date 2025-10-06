@@ -1,6 +1,7 @@
 import { LexicalContent } from '@/types/lexical'
 
 export interface Post {
+
   id: string
   title: string
   slug: string
@@ -13,6 +14,22 @@ export interface Post {
     alt: string
   }
   status: 'draft' | 'published'
+}
+
+type PostDoc = {
+  id: string
+  title: string
+  slug: string
+  excerpt: string
+  content: LexicalContent
+  publishedAt: string
+  tags?: { tag: string }[]
+  coverImage?: string | { url: string; alt?: string }
+  status: 'draft' | 'published'
+}
+
+type PostsResponse = {
+  docs: PostDoc[]
 }
 
 export async function getAllPosts(): Promise<Post[]> {
@@ -31,21 +48,21 @@ export async function getAllPosts(): Promise<Post[]> {
       throw new Error('Failed to fetch posts')
     }
 
-    const data = await response.json()
+    const data = (await response.json()) as PostsResponse
 
     // Transform the data to match your component's structure
-    return data.docs.map((post: any) => ({
+    return data.docs.map((post) => ({
       id: post.id,
       title: post.title,
       slug: post.slug,
       excerpt: post.excerpt,
       content: post.content,
       publishedAt: post.publishedAt,
-      tags: post.tags?.map((t: any) => t.tag) || [],
+      tags: post.tags?.map((t) => t.tag) || [],
       coverImage: post.coverImage
         ? {
             url: typeof post.coverImage === 'string' ? post.coverImage : post.coverImage.url,
-            alt: post.coverImage.alt || post.title,
+            alt: (typeof post.coverImage === 'string' ? undefined : post.coverImage.alt) || post.title,
           }
         : undefined,
       status: post.status,
@@ -72,20 +89,20 @@ export async function getLatestPosts(limit = 4): Promise<Post[]> {
       throw new Error('Failed to fetch latest posts')
     }
 
-    const data = await response.json()
+    const data = (await response.json()) as PostsResponse
 
-    return data.docs.map((post: any) => ({
+    return data.docs.map((post) => ({
       id: post.id,
       title: post.title,
       slug: post.slug,
       excerpt: post.excerpt,
       content: post.content,
       publishedAt: post.publishedAt,
-      tags: post.tags?.map((t: any) => t.tag) || [],
+      tags: post.tags?.map((t) => t.tag) || [],
       coverImage: post.coverImage
         ? {
             url: typeof post.coverImage === 'string' ? post.coverImage : post.coverImage.url,
-            alt: post.coverImage?.alt || post.title,
+            alt: (typeof post.coverImage === 'string' ? undefined : post.coverImage.alt) || post.title,
           }
         : undefined,
       status: post.status,
@@ -109,7 +126,7 @@ export async function getPostBySlug(slug: string): Promise<Post | null> {
       return null
     }
 
-    const data = await response.json()
+    const data = (await response.json()) as PostsResponse
 
     if (data.docs.length === 0) {
       return null
@@ -124,11 +141,11 @@ export async function getPostBySlug(slug: string): Promise<Post | null> {
       excerpt: post.excerpt,
       content: post.content,
       publishedAt: post.publishedAt,
-      tags: post.tags?.map((t: any) => t.tag) || [],
+      tags: post.tags?.map((t) => t.tag) || [],
       coverImage: post.coverImage
         ? {
             url: typeof post.coverImage === 'string' ? post.coverImage : post.coverImage.url,
-            alt: post.coverImage.alt || post.title,
+            alt: (typeof post.coverImage === 'string' ? undefined : post.coverImage.alt) || post.title,
           }
         : undefined,
       status: post.status,

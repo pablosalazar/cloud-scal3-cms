@@ -64,5 +64,8 @@ export interface LinkFields {
   linkType: 'custom' | 'internal'
   url?: string
   newTab?: boolean
-  doc?: any
+  doc?: {
+    relationTo: string
+    value: number | Record<string, unknown>
+  } | null
 }
