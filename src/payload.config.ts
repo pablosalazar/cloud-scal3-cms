@@ -29,7 +29,7 @@ export default buildConfig({
   },
   db: sqliteAdapter({
     client: {
-      url: process.env.DATABASE_URI || '',
+      url: 'file:./cloud-scal3-cms.db',
     },
     push: true,
   }),
