@@ -7,9 +7,9 @@ import Link from 'next/link'
 import { renderRichText } from '@/lib/richtext-renderer'
 
 interface PageProps {
-  params: {
+  params: Promise<{
     slug: string
-  }
+  }>
 }
 
 export async function generateStaticParams() {
