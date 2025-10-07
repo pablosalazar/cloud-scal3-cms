@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      '@libsql/client':
+        specifier: 0.14.0
+        version: 0.14.0
       '@payloadcms/db-sqlite':
         specifier: 3.58.0
         version: 3.58.0(payload@3.58.0(graphql@16.11.0)(typescript@5.7.3))
@@ -56,6 +59,9 @@ importers:
       graphql:
         specifier: ^16.8.1
         version: 16.11.0
+      libsql:
+        specifier: 0.4.7
+        version: 0.4.7
       lucide-react:
         specifier: ^0.544.0
         version: 0.544.0(react@19.1.0)
